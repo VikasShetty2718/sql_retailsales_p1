@@ -70,34 +70,29 @@ WHERE
 
 The following SQL queries were developed to answer specific business questions:
 
-1. **Write a SQL query to retrieve all columns for sales made on '2022-11-05**:
+1. **how many unique customers we have**:
 ```sql
-SELECT *
-FROM retail_sales
-WHERE sale_date = '2022-11-05';
+SELECT COUNT(DISTINCT customer_id) as total_sale from retail_sales;
 ```
 
 2. **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022**:
 ```sql
-SELECT 
-  *
-FROM retail_sales
-WHERE 
-    category = 'Clothing'
-    AND 
-    TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'
-    AND
-    quantity >= 4
+SELECT *
+ FROM retail_sales
+ WHERE category = 'Clothing'
+   AND quantiy > 2
+   AND sale_date >= '2023-11-01'
+   AND sale_date < '2023-12-01';
+
 ```
 
 3. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
 ```sql
 SELECT 
     category,
-    SUM(total_sale) as net_sale,
-    COUNT(*) as total_orders
+    SUM(total_sale) 
 FROM retail_sales
-GROUP BY 1
+GROUP BY category
 ```
 
 4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.**:
@@ -119,10 +114,9 @@ WHERE total_sale > 1000
 SELECT 
     category,
     gender,
-    COUNT(*) as total_trans
+    COUNT(*) as total_transaction
 FROM retail_sales
-GROUP 
-    BY 
+GROUP BY 
     category,
     gender
 ORDER BY 1
@@ -162,7 +156,7 @@ LIMIT 5
 ```sql
 SELECT 
     category,    
-    COUNT(DISTINCT customer_id) as cnt_unique_cs
+    COUNT(DISTINCT customer_id) as distinct_customer
 FROM retail_sales
 GROUP BY category
 ```
